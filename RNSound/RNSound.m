@@ -150,7 +150,8 @@ RCT_EXPORT_METHOD(setCategory
                   : (NSString *)categoryName mixWithOthers
                   : (BOOL)mixWithOthers) {
     AVAudioSession *session = [AVAudioSession sharedInstance];
-    NSString *category = nil;
+    AVAudioSessionCategory category = session.category;
+    AVAudioSessionCategoryOptions options = session.categoryOptions;
 
     if ([categoryName isEqual:@"Ambient"]) {
         category = AVAudioSessionCategoryAmbient;
@@ -179,7 +180,7 @@ RCT_EXPORT_METHOD(setCategory
                                  AVAudioSessionCategoryOptionAllowBluetooth
                            error:nil];
         } else {
-            [session setCategory:category error:nil];
+            [session setCategory:category withOptions:options error:nil];
         }
     }
 }
