@@ -172,18 +172,12 @@ RCT_EXPORT_METHOD(setCategory
     else if ([categoryName isEqual:@"MultiRoute"]) {
         category = AVAudioSessionCategoryMultiRoute;
     }
-
-    if (category) {
-        if (mixWithOthers) {
-            [session setCategory:category
-                     withOptions:AVAudioSessionCategoryOptionMixWithOthers |
-                                 AVAudioSessionCategoryOptionAllowBluetooth |
-                                 AVAudioSessionCategoryOptionDefaultToSpeaker
-                           error:nil];
-        } else {
-            [session setCategory:category withOptions:options error:nil];
-        }
+    
+    if (mixWithOthers) {
+        options = AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionAllowBluetooth | AVAudioSessionCategoryOptionDefaultToSpeaker;
     }
+
+    [session setCategory:category withOptions:options error:nil];
 }
 
 RCT_EXPORT_METHOD(enableInSilenceMode : (BOOL)enabled) {
